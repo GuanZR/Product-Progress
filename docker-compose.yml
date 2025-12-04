@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  web:
+    image: nginx:latest
+    container_name: artflow-web
+    ports:
+      - "8080:80"
+    volumes:
+      - /web_project:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
+
+  php:
+    image: php:8.2-fpm
+    container_name: artflow-php
+    volumes:
+      - /web_project:/var/www/html
+    restart: unless-stopped
+
+  db:
+    image: mariadb:10
+    container_name: artflow-db
+    environment:
+      - MYSQL_ROOT_PASSWORD=admin
+      - MYSQL_DATABASE=artflow_tracker
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: artflow-phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+    restart: unless-stopped
+
+volumes:
+  db_data:
