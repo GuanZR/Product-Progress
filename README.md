@@ -59,8 +59,8 @@
 
 1. **克隆项目**
    ```bash
-   git clone https://github.com/your-username/artflow-tracker.git
-   cd artflow-tracker
+   git clone https://github.com/GuanZR/Product-Progress.git
+   cd Product-Progress
    ```
 
 2. **构建前端项目**
